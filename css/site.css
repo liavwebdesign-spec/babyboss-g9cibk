@@ -271,20 +271,22 @@ p { margin: 0; text-wrap: pretty; }
   .sync-texts .block-cta { min-height: 30svh; }
 }
 
-/* ---------- founder: C8 editorial ---------- */
-.founder { padding: var(--sec) var(--gutter); }
-.founder h2 { max-width: 21ch; }
-.fd-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .72fr); gap: clamp(32px, 7vw, 192px); align-items: end; margin-top: clamp(40px, 4vw, 88px); }
-.fd-text { display: grid; gap: 20px; justify-items: start; max-width: 46ch; }
+/* ---------- founder: C8 editorial spread. Heading, story and link read as one column on the start side;
+   the photo stands beside them at the same height (mirror of the statement spread, which puts its photo on the start side) ---------- */
+.founder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .72fr); grid-template-rows: 1fr auto auto 1fr; column-gap: clamp(40px, 7vw, 192px); row-gap: clamp(24px, 2.4vw, 40px); align-items: start; padding: var(--sec) var(--gutter); }
+.founder h2 { grid-column: 1; grid-row: 2; max-width: 22ch; }   /* rows 1 and 4 are flexible: the text block sits centred against the photo */
+.fd-body { display: contents; }
+.fd-text { grid-column: 1; grid-row: 3; display: grid; gap: 20px; justify-items: start; max-width: 48ch; }
 .fd-text p { font-size: var(--fs-lead); line-height: 1.75; color: var(--muted-strong); }
-.fd-pic { margin: 0; display: grid; gap: 14px; }
+.fd-pic { grid-column: 2; grid-row: 1 / -1; align-self: center; margin: 0; display: grid; gap: 14px; }
 .fd-pic img { width: 100%; aspect-ratio: 1; height: auto; object-fit: cover; object-position: 50% 70%; }
-.fd-pic figcaption { max-width: 34ch; font-size: var(--fs-micro); line-height: 1.6; color: var(--muted); }
+.fd-pic figcaption { max-width: 40ch; font-size: var(--fs-micro); line-height: 1.6; color: var(--muted); }
 .fd-pic figcaption .lat { margin-inline-end: 8px; font-size: var(--fs-small); font-weight: 500; letter-spacing: .08em; color: var(--ink); }
-.fd-year { aspect-ratio: 4 / 5; display: grid; align-content: end; gap: 24px; padding: clamp(24px, 2.6vw, 48px); background: var(--paper); }
-.fd-year .lat { font-size: clamp(88px, 9vw, 200px); font-weight: 400; line-height: 1; letter-spacing: -.03em; color: var(--ink); }
-.fd-year figcaption { max-width: 28ch; font-size: var(--fs-small); line-height: 1.6; color: var(--muted-strong); }
-@media (max-width: 767px) { .fd-body { grid-template-columns: 1fr; } .fd-pic { max-width: 420px; } }
+@media (max-width: 767px) {
+  .founder { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .founder h2, .fd-text, .fd-pic { grid-column: 1; grid-row: auto; }
+  .fd-pic { max-width: 420px; }
+}
 
 /* ---------- high chairs: C2, the card rides on the empty paper beside the chair ---------- */
 .chairs { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; padding: clamp(24px, 2vw, 48px) var(--gutter) var(--sec); }
