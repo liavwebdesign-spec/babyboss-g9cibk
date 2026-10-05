@@ -201,6 +201,33 @@
     });
   }
 
+  /* the reviews wall (from iLab, 5.10.2026): columns travel with the scroll at their own speed, the middle one the other way.
+     Only with motion allowed; otherwise the wall stays whole and still */
+  var wall = document.querySelector(".rw");
+  if (wall) {
+    var wcols = [].slice.call(wall.querySelectorAll(".rw-col"));
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+      wall.classList.add("is-moving");
+      wcols.filter(function (c) { return c.offsetParent !== null; }).forEach(function (c) {
+        var sp = +c.dataset.speed || 1, k = Math.min(1, Math.abs(sp));
+        var room = function () { return Math.max(48, c.offsetHeight - wall.clientHeight); };
+        gsap.fromTo(c, { y: function () { return sp > 0 ? 0 : -room() * k; } }, { y: function () { return sp > 0 ? -room() * k : 0; }, ease: "none",
+          // whole device pixels, so the text stays crisp while the column travels
+          modifiers: { y: function (v) { var d = window.devicePixelRatio || 1; return (Math.round(parseFloat(v) * d) / d) + "px"; } },
+          scrollTrigger: { trigger: wall, start: "top bottom", end: "bottom top", scrub: 1, invalidateOnRefresh: true } });
+      });
+      return function () { wall.classList.remove("is-moving"); gsap.set(wcols, { clearProps: "transform" }); };
+    });
+  }
+
+  /* the visit: the city shoot settles slowly as the section arrives, nothing more */
+  var vbg = document.querySelector(".vs-bg img");
+  if (vbg) {
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+      gsap.fromTo(vbg, { scale: 1.14, yPercent: -3 }, { scale: 1.07, yPercent: 3, ease: "none", scrollTrigger: { trigger: "#visit", start: "top bottom", end: "bottom top", scrub: 1 } });
+    });
+  }
+
   /* MV:g05, the signature: the stroller stays, the chassis changes as each model's text arrives */
   var texts = gsap.utils.toArray(".sync-t");
   if (texts.length) {

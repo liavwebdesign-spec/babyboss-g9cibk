@@ -10,7 +10,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preload" href="fonts/FUP-Nesher-Light.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" type="image/webp" imagesrcset="images/jaffa-1600.webp 1600w, images/jaffa.webp 2800w" imagesizes="100vw" fetchpriority="high">
-<link rel="stylesheet" href="css/site.css?v=17">
+<link rel="stylesheet" href="css/site.css?v=21">
 <script>document.documentElement.classList.add("js");if(matchMedia("(prefers-reduced-motion: no-preference)").matches)document.documentElement.classList.add("open-anim");</script>
 <script>if(/[?&]review=/.test(location.search))document.documentElement.classList.add("is-review")</script>
 <style>@media (max-width: 767px) { .is-review .fabs { bottom: 72px; } .is-review .fabs.is-off { transform: translateY(calc(110% + 72px)); } }</style>
@@ -183,28 +183,37 @@
     <div class="br-actions"></div>
   </dialog>
 
-  <!-- 07 · reviews, C13 asymmetric -->
+  <!-- 07 · reviews: a wall that moves with the scroll (as on iLab, 5.10.2026): three columns at their own speed, the middle one
+       the other way. Real Google reviews, quoted as written. Whole and still without GSAP or with reduced motion -->
   <section class="reviews" aria-labelledby="rv-title">
-    <div class="head reveal">
+    <div class="head center reveal">
       <h2 id="rv-title">רוב הלקוחות שלנו שואלים אותנו שאלה אחת: איך לא שמענו עליכם קודם?</h2>
       <p class="rv-score"><b class="lat">4.8</b> בגוגל, מתוך 32 ביקורות.</p>
     </div>
-    <ul class="rv-grid">
-      <li class="rv-card reveal" style="--i:0"><blockquote><p>"לפני שהתינוק שלי נולד, חקרתי כל מותג אפשרי... הבייבי בוס בכנות העגלה היחידה שהצלחתי לעשות איתה הכל מא׳ עד ת׳ בעצמי, בלי עזרה מבן הזוג ואפילו בלי הדרכה מהמוכר."</p></blockquote><span class="rv-by"><span class="lat">Maria</span>, ביקורת בגוגל</span></li>
-      <li class="rv-card reveal" style="--i:1"><blockquote><p>"קנינו עגלה של בייביבוס (טייגר 2) בהמלצה של זוג חברים, ואין ספק שזאת הקניה וההמלצה הכי טובה שקיבלנו. תמורה מלאה לכסף, לא חסר כלום בעגלה הזאת."</p></blockquote><span class="rv-by"><span class="lat">Zlil</span>, ביקורת בגוגל</span></li>
-      <li class="rv-card reveal" style="--i:2"><blockquote><p>"ארבע וחצי שנים עם העגלה, שני ילדים. תמיד זמינים, ניתן לחדש את העגלה באמצעות חלפים... שווה את ההשקעה."</p></blockquote><span class="rv-by"><span class="lat">Matan</span>, ביקורת בגוגל</span></li>
-    </ul>
-    <a class="tlink rv-all reveal" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%91%D7%99%D7%99%D7%91%D7%99+%D7%91%D7%95%D7%A1+%D7%94%D7%A4%D7%9C%D7%93%D7%94+9+%D7%90%D7%95%D7%A8+%D7%99%D7%94%D7%95%D7%93%D7%94" target="_blank" rel="noopener">לכל הביקורות בגוגל<svg class="arr" aria-hidden="true"><use href="#i-arr"/></svg></a>
+    <div class="rw" data-crop-ok>
+      <div class="rw-col" data-speed="1"><figure class="rv-card"><span class="rv-pic"><img src="images/m-bobcat.webp" alt="" width="1100" height="1100" loading="lazy" decoding="async"></span><blockquote><p>"לפני שהתינוק שלי נולד, חקרתי כל מותג אפשרי... הבייבי בוס בכנות העגלה היחידה שהצלחתי לעשות איתה הכל מא׳ עד ת׳ בעצמי, בלי עזרה מבן הזוג ואפילו בלי הדרכה מהמוכר."</p></blockquote><figcaption><b class="lat">Maria B.</b><span>ביקורת בגוגל · בובקט</span></figcaption></figure><figure class="rv-card"><blockquote><p>"מתקפלת בקלות עם יד אחת, קלה אבל ממש יציבה, עם סל גדול לדחוף את כל השטויות שצריך וגם לא צריך."</p></blockquote><figcaption><b class="lat">Lina K.</b><span>ביקורת בגוגל · טייגר</span></figcaption></figure><figure class="rv-card"><blockquote><p>"ארבע וחצי שנים עם העגלה, שני ילדים. תמיד זמינים, ניתן לחדש את העגלה באמצעות חלפים... שווה את ההשקעה."</p></blockquote><figcaption><b class="lat">Matan O.</b><span>ביקורת בגוגל</span></figcaption></figure></div>
+      <div class="rw-col" data-speed="-1.25"><figure class="rv-card"><blockquote><p>"הגעתי קיבל אותי קובי, איש חביב, שלקח ממני את העגלה, וחזר לאחר 20 דקות עם עגלה תקינה... טוב לדעת שאתה קונה מוצר טוב, יש שירות לאחר מכירה, ובמקרה שלי שירות לאחר האחריות."</p></blockquote><figcaption><b class="lat">Shimon T.</b><span>ביקורת בגוגל</span></figcaption></figure><figure class="rv-card"><span class="rv-pic"><img src="images/m-tiger.webp" alt="" width="1100" height="1100" loading="lazy" decoding="async"></span><blockquote><p>"עגלה הכי קלה שיש, מתקפלת במצמוץ עיניים, ניווט קליל, יציבה, עוברת כל מדרכה, מדשאה, חצץ וכורכר (ואנחנו גרים בקיבוץ!)"</p></blockquote><figcaption><b class="lat">Sivan H.</b><span>ביקורת בגוגל · טייגר</span></figcaption></figure><figure class="rv-card"><blockquote><p>"קנינו עגלה של בייביבוס (טייגר 2) בהמלצה של זוג חברים, ואין ספק שזאת הקניה וההמלצה הכי טובה שקיבלנו. תמורה מלאה לכסף, לא חסר כלום בעגלה הזאת."</p></blockquote><figcaption><b class="lat">Zlil C.</b><span>ביקורת בגוגל · טייגר 2</span></figcaption></figure></div>
+      <div class="rw-col" data-speed="0.8"><figure class="rv-card"><blockquote><p>"מאוד יציבה ומרגישה חזקה! מתקפלת בקלילות עם יד אחת! גלגלים גדולים ורחבים ביחס לעגלות שראינו!"</p></blockquote><figcaption><b class="lat">Alex F.</b><span>ביקורת בגוגל · טייגר</span></figcaption></figure><figure class="rv-card"><blockquote><p>"איכות נסיעה מושלמת ממש, העגלה עוברת בקלילות גם על מדרכות ושבילי עפר... האפשרות לפתוח רשת לתינוק וכיסי האחסון ממש נוחים, נותנים תחושה שחשבו על כל פרט."</p></blockquote><figcaption><b>מזל טוב ד.</b><span>ביקורת בגוגל · בובקט</span></figcaption></figure><figure class="rv-card"><blockquote><p>"גלגלים גדולים (יחסית) שמאפשרים נסיעה גם בדרכים משובשות. אחלה בולמי זעזועים... שירות ממש תענוג"</p></blockquote><figcaption><b class="lat">Billy B.</b><span>ביקורת בגוגל</span></figcaption></figure></div>
+    </div>
+    <div class="rv-foot reveal"><a class="tlink" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%91%D7%99%D7%99%D7%91%D7%99+%D7%91%D7%95%D7%A1+%D7%94%D7%A4%D7%9C%D7%93%D7%94+9+%D7%90%D7%95%D7%A8+%D7%99%D7%94%D7%95%D7%93%D7%94" target="_blank" rel="noopener">לכל הביקורות בגוגל<svg class="arr" aria-hidden="true"><use href="#i-arr"/></svg></a></div>
   </section>
 
-  <!-- 08 · closing, the visit -->
+  <!-- 08 · closing, the visit: the city shoot breathes under the ink (scrubbed, slow), three facts on hairlines -->
   <section class="visit" id="visit" aria-labelledby="vs-title">
-    <h2 class="reveal" id="vs-title">רוצים לנסות אותה לפני שמחליטים?</h2>
-    <p class="reveal">אנחנו בהפלדה 9 באור יהודה. ההגעה בתיאום מראש, כדי שמישהו יחכה לכם ויראה לכם את כל הדגמים מקרוב. ואם יש לכם שאלה לפני כן, הכי מהר לכתוב לנו בוואטסאפ.</p>
-    <div class="vs-cta reveal">
-      <a class="btn btn-light" href="https://wa.me/972524312213" data-wa="היי, הגעתי מהאתר ואשמח לתאם הגעה לאור יהודה" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>לתיאום הגעה בוואטסאפ</a>
-      <a class="tlink lat" href="https://waze.com/ul?q=%D7%94%D7%A4%D7%9C%D7%93%D7%94%209%20%D7%90%D7%95%D7%A8%20%D7%99%D7%94%D7%95%D7%93%D7%94&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
-      <a class="tlink lat" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%94%D7%A4%D7%9C%D7%93%D7%94+9+%D7%90%D7%95%D7%A8+%D7%99%D7%94%D7%95%D7%93%D7%94" target="_blank" rel="noopener">Google Maps</a>
+    <div class="vs-bg"><img src="images/visit-city.webp" srcset="images/visit-city-1400.webp 1400w, images/visit-city.webp 2400w" sizes="100vw" width="2400" height="1601" alt="אישה צוחקת ליד עגלת Baby Boss אפורה ברחוב עירוני" loading="lazy" decoding="async"></div>
+    <div class="vs-in">
+      <h2 class="reveal" id="vs-title">רוצים לנסות אותה לפני שמחליטים?</h2>
+      <p class="reveal">אנחנו בהפלדה 9 באור יהודה. ההגעה בתיאום מראש, כדי שמישהו יחכה לכם ויראה לכם את כל הדגמים מקרוב. ואם יש לכם שאלה לפני כן, הכי מהר לכתוב לנו בוואטסאפ.</p>
+      <ul class="vs-facts reveal">
+        <li><b>הפלדה 9</b><span>אור יהודה</span></li>
+        <li><b>בתיאום מראש</b><span>מישהו מחכה לכם</span></li>
+        <li><b>כל הדגמים</b><span>לנסות, לקפל, להסיע</span></li>
+      </ul>
+      <div class="vs-cta reveal">
+        <a class="btn btn-light" href="https://wa.me/972524312213" data-wa="היי, הגעתי מהאתר ואשמח לתאם הגעה לאור יהודה" target="_blank" rel="noopener"><svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>לתיאום הגעה בוואטסאפ</a>
+        <a class="tlink lat" href="https://waze.com/ul?q=%D7%94%D7%A4%D7%9C%D7%93%D7%94%209%20%D7%90%D7%95%D7%A8%20%D7%99%D7%94%D7%95%D7%93%D7%94&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
+        <a class="tlink lat" href="https://www.google.com/maps/search/?api=1&amp;query=%D7%94%D7%A4%D7%9C%D7%93%D7%94+9+%D7%90%D7%95%D7%A8+%D7%99%D7%94%D7%95%D7%93%D7%94" target="_blank" rel="noopener">Google Maps</a>
+      </div>
     </div>
   </section>
 </main>
@@ -249,7 +258,7 @@
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
-<script src="js/site.js?v=6" defer></script>
+<script src="js/site.js?v=7" defer></script>
 <script src="js/a11y.js?v=1" defer></script>
 <script src="js/snap-icons.js?v=1" defer></script>
 <script src="https://crm.liavmatzri.co.il/review.js" defer></script>
