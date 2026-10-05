@@ -167,6 +167,10 @@ p { margin: 0; text-wrap: pretty; }
 .hero-media { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 68%; transform: scaleX(-1); }
 /* readability layer from the side of the text (h3 rule), light because the stone is light and the brand ink is black */
+/* the header is transparent over the photo: a light band across the top keeps the nav, the button and the logo readable
+   on the stone wall, then fades out well before the photo's subject */
+.hero::before { content: ""; position: absolute; inset: 0 0 auto; z-index: -1; height: calc(var(--hdr) * 2); pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255,255,255,.86) 0%, rgba(255,255,255,.7) 45%, rgba(255,255,255,0) 100%); }
 .hero-scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to left, rgba(255,255,255,.9) 0%, rgba(255,255,255,.78) 22%, rgba(255,255,255,.42) 40%, rgba(255,255,255,.12) 52%, rgba(255,255,255,0) 62%); }
 .hero-copy { display: grid; justify-items: start; gap: clamp(14px, 2.4vh, 28px); max-width: min(46vw, 860px); }
 .hero-kick { font-size: var(--fs-micro); font-weight: 500; letter-spacing: 0; color: var(--muted-strong); }
@@ -191,7 +195,7 @@ p { margin: 0; text-wrap: pretty; }
   .hero { align-content: stretch; grid-template-rows: auto 1fr; padding: var(--hdr) 0 0; }
   .hero-media { position: relative; inset: auto; z-index: 0; height: clamp(190px, 33svh, 340px); }
   .hero-media img { object-position: 12% 62%; }
-  .hero-scrim { display: none; }
+  .hero-scrim, .hero::before { display: none; }
   .hero-copy { max-width: none; align-content: center; padding: clamp(20px, 4svh, 40px) var(--gutter) clamp(24px, 4svh, 40px); gap: 14px; }
   .hero-lead { font-size: calc(16px * var(--a11y-scale)); }
   .hero-cta { flex-wrap: nowrap; gap: 10px; }
