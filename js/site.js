@@ -96,8 +96,8 @@
   /* ---------- brand windows: a native dialog (focus in, Esc, focus back to the logo) ---------- */
   var BRANDS = {
     valco: { origin: "אוסטרליה", name: "Valco Baby", text: "חברה משפחתית שמייצרת עגלות מאז 1965. אנחנו מביאים לישראל את עגלת התאומים שלה, ה-Slim Twin.", link: ["לעגלת התאומים", "twin.html"] },
+    abc: { origin: "גרמניה", name: "ABC Design", text: "חברה משפחתית מגרמניה, שהוקמה ב-1989 ומייצרת עגלות, כיסאות בטיחות לרכב וכיסאות אוכל. אנחנו מביאים לישראל את המוצרים שלה." },
     choopie: { origin: "ארה\"ב", name: "Choopie", text: "את החברה הקימה בניו יורק אמא שזיהתה צורך, וכך נולדו ה-City Grips: כיסויים לידית העגלה. אנחנו מביאים את City Grips ואת City Hooks, הווים לתליית תיקים על העגלה." },
-    cuddleco: { origin: "בריטניה", name: "CuddleCo", text: "המותג של Comfi-Cush, מזרן לעגלה מקצף זיכרון שנותן לתינוק משטח רך ותומך. אנחנו מביאים את מזרני העגלה שלו." },
     benbat: { origin: "ישראל", name: "Benbat", text: "מותג ישראלי שהקימו ב-2008 שני אחים, מעצבי מוצר, ושנמכר היום ביותר מ-30 מדינות. אנחנו מפיצים את המראות, הצלונים והצעצועים שלו לרכב ולעגלה." }
   };
   var dlg = document.getElementById("br-dlg"), opener = null;
