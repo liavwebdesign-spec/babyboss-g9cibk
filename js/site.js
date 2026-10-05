@@ -124,6 +124,51 @@
     dlg.addEventListener("close", function () { if (opener) opener.focus({ preventScroll: true }); });
   }
 
+  /* ---------- the stroller finder (strollers.html): three questions, one screen each, then the answer ----------
+     Priority, as in the copy (Kobi still has to approve it): rough ground -> Tiger, stairs -> Panther, small boot -> Cheetah, else Bobcat */
+  var fbox = document.querySelector("[data-finder]");
+  if (fbox) {
+    var BUY = "https://www.babyboss.co.il/items/9136266", SHOP = "https://www.babyboss.co.il/821278";
+    var MODELS = {
+      tiger: { name: "טייגר 3", img: "images/m-tiger.webp", buy: [SHOP, "לאתר המכירות"], why: "הדרך שלכם היא לא רק אספלט, וטייגר 3 בנויה בדיוק בשביל זה: גלגלים גדולים וקפיץ לכל גלגל." },
+      panther: { name: "פנתר 3", img: "images/m-panther.webp", buy: [SHOP, "לאתר המכירות"], why: "אתם סוחבים את העגלה במדרגות, ופנתר 3 היא הקלה ביותר שלנו: 6.2 ק\"ג עם הטיולון." },
+      cheetah: { name: "צ'יטה 3", img: "images/m-cheetah.webp", buy: [SHOP, "לאתר המכירות"], why: "הבגאז' שלכם קטן, וצ'יטה 3 מתקפלת לגודל הקטן ביותר מכל הדגמים שלנו." },
+      bobcat: { name: "בובקט 3", img: "images/m-bobcat.webp", buy: [BUY, "לרכישה"], why: "בובקט 3 מתאימה לרוב המשפחות, ולכן היא גם הדגם הנמכר ביותר שלנו." }
+    };
+    var qs = [].slice.call(fbox.querySelectorAll(".fi-q")), res = fbox.querySelector(".fi-res");
+    var bar = fbox.querySelector(".fi-bar i"), live = fbox.querySelector("[data-finder-live]");
+    var picks = [], words = [];
+    function show(el) { qs.concat(res).forEach(function (x) { x.hidden = x !== el; }); }
+    function step(i) {
+      show(qs[i]);
+      bar.style.transform = "scaleX(" + (i / qs.length) + ")";
+      live.textContent = "שאלה " + (i + 1) + " מתוך " + qs.length;
+      qs[i].querySelector(".fi-opt").focus({ preventScroll: true });
+    }
+    function result() {
+      var k = picks[0] ? "tiger" : picks[1] ? "panther" : picks[2] ? "cheetah" : "bobcat", m = MODELS[k];
+      res.querySelector("img").src = m.img;
+      res.querySelector(".m-name").textContent = m.name;
+      res.querySelector(".fi-why").textContent = m.why;
+      res.querySelector(".fi-wa").href = waHref("היי, עשיתי את השאלון באתר ויצא לי " + m.name + ". הדרך שלנו: " + words[0] + ". מהבית לרחוב: " + words[1] + ". בגאז': " + words[2] + ". אשמח לשמוע עוד.");
+      var buy = res.querySelector(".fi-buy"); buy.href = m.buy[0]; buy.textContent = m.buy[1];
+      show(res);
+      bar.style.transform = "scaleX(1)";
+      live.textContent = "ההמלצה שלנו: " + m.name;
+      res.focus({ preventScroll: true });
+    }
+    qs.forEach(function (q, i) {
+      q.querySelectorAll(".fi-opt").forEach(function (b) {
+        b.addEventListener("click", function () {
+          picks[i] = b.getAttribute("data-v") === "1"; words[i] = b.textContent.trim();
+          if (i < qs.length - 1) step(i + 1); else result();
+        });
+      });
+    });
+    fbox.querySelector(".fi-again").addEventListener("click", function () { picks = []; words = []; step(0); });
+    fbox.classList.add("is-live");
+  }
+
   /* ---------- floating WhatsApp: after the hero, and away again where the page already offers it ---------- */
   // on a phone the whole bar steps aside (its accessibility button lives in the header meanwhile); wider, only WhatsApp does
   var fab = document.querySelector(".fab-wa"), fabs = document.getElementById("fabs");
