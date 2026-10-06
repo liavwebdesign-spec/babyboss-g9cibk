@@ -220,6 +220,22 @@
     });
   }
 
+  /* the width (twin.html): the section pins while a 66 cm line draws under the stroller and the number counts up to it.
+     Without motion the line and the number are simply there */
+  var wd = document.getElementById("width");
+  if (wd) {
+    var wline = wd.querySelector(".wd-rule"), wnum = wd.querySelector("[data-count]"), wtarget = +wnum.dataset.count;
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+      var st = { p: 0 };
+      var draw = function () { wline.style.setProperty("--p", st.p); wline.style.setProperty("--t", st.p > .98 ? 1 : st.p * .4); wnum.textContent = Math.round(st.p * wtarget); };
+      draw();
+      gsap.timeline({ scrollTrigger: { trigger: wd, start: "top top", end: "+=800", scrub: 1, pin: wd.querySelector(".wd-pin"), anticipatePin: 1 } })
+        .fromTo(wd.querySelector(".wd-pic img"), { scale: 1.06 }, { scale: 1, ease: "none" }, 0)
+        .to(st, { p: 1, ease: "power1.inOut", onUpdate: draw }, .1);
+      return function () { st.p = 1; draw(); };
+    });
+  }
+
   /* the visit: the city shoot settles slowly as the section arrives, nothing more */
   var vbg = document.querySelector(".vs-bg img");
   if (vbg) {
