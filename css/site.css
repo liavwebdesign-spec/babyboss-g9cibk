@@ -3,16 +3,15 @@
    The four strollers are four looks of the same stroller.
    Frame: fluid (MV:fluid). Skin: editorial minimalism in black and white (MV:s05), mined from Kobi's references
    (Anex, Cybex IL): white, near-black ink, square corners, no accent colour, the colour comes from the photo only.
-   Headings FUP Nesher 300 (Latin Clash Display 112%), body FUP Begin 400 (Latin Clash Grotesk 114%). Pair L1.
+   Headings FUP Nesher 300 (Latin Clash Display 112%), body Google Sans 400/500, Hebrew and Latin from one hand (Liav, 6.10.2026; was FUP Begin). Pair L9.
    Header MV:hd2 (logo centred, nav split). Hero MV:h3 (full media). Motion: MV:g05 (signature) + MV:g03. */
 
 /* ---------- fonts ---------- */
 @font-face { font-family: "Nesher"; src: url("../fonts/FUP-Nesher-Light.woff2") format("woff2"); font-weight: 300; font-display: swap;
   unicode-range: U+0000-0040, U+005B-0060, U+007B-00BF, U+0590-05FF, U+2000-206F, U+20AA, U+FB1D-FB4F; }
-@font-face { font-family: "Begin"; src: url("../fonts/FUP-Begin-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap;
-  unicode-range: U+0000-0040, U+005B-0060, U+007B-00BF, U+0590-05FF, U+2000-206F, U+20AA, U+FB1D-FB4F; }
-@font-face { font-family: "Begin"; src: url("../fonts/FUP-Begin-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap;
-  unicode-range: U+0000-0040, U+005B-0060, U+007B-00BF, U+0590-05FF, U+2000-206F, U+20AA, U+FB1D-FB4F; }
+/* body: Google Sans, the doctrine's one Google exception, hosted here; size-adjust 96% for running text (font-calibration L9) */
+@font-face { font-family: "Google Sans"; src: url("../fonts/GoogleSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; size-adjust: 96%; }
+@font-face { font-family: "Google Sans"; src: url("../fonts/GoogleSans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; size-adjust: 96%; }
 @font-face { font-family: "Clash Display"; src: url("../fonts/ClashDisplay-Light.woff2") format("woff2"); font-weight: 300; font-display: swap; size-adjust: 112%; }
 @font-face { font-family: "Clash Grotesk"; src: url("../fonts/ClashGrotesk-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; size-adjust: 114%; }
 @font-face { font-family: "Clash Grotesk"; src: url("../fonts/ClashGrotesk-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; size-adjust: 114%; }
@@ -21,8 +20,8 @@
 :root {
   --a11y-scale: 1;
   --f-display: "Nesher", "Clash Display", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --f-text: "Begin", "Clash Grotesk", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --f-latin: "Clash Grotesk", "Begin", system-ui, sans-serif;
+  --f-text: "Google Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --f-latin: "Clash Grotesk", "Google Sans", system-ui, sans-serif;
 
   /* black and white, read from Kobi's logo and from the references. No accent: the photo carries the colour */
   --ink: #0f0f0f;            /* Anex's ink. Headings, buttons, the logo */
@@ -49,7 +48,7 @@
   --gap-m: clamp(20px, 2vw, 48px);
   --measure: clamp(560px, 36vw, 760px);
 
-  /* type. Nesher reads small (factor 1.265, lambda .92) and the factor is inside the values; Begin x0.864.
+  /* type. Nesher reads small (factor 1.265, lambda .92) and the factor is inside the values; Google Sans x0.95, lambda 1.05 (text sizes land inside the body ranges).
      The hero size depends on width AND height (heroes.md): it has to fit a 1280x720 laptop */
   --fs-hero: calc(clamp(52px, min(5.4vw, 9vh) + 0.5rem, 150px) * var(--a11y-scale));
   --fs-statement: calc(clamp(40px, 3.6vw + 0.5rem, 112px) * var(--a11y-scale));
@@ -84,6 +83,7 @@ h2 { font-size: var(--fs-h2); line-height: 1.1; }
 h3 { margin: 0; font-family: var(--f-text); font-size: var(--fs-h3); font-weight: 500; line-height: 1.4; color: var(--ink); }
 p { margin: 0; text-wrap: pretty; }
 .lat { font-family: var(--f-latin); }
+p .lat, li .lat, blockquote .lat, figcaption .lat, .btn.lat, .tlink.lat { font-family: var(--f-text); }  /* running text: Google Sans has its own Latin, no second face mid-sentence */
 p .lat, li .lat { white-space: nowrap; }  /* "Baby Boss" never splits across lines inside a sentence */
 h1 .lat, h2 .lat { font-family: "Clash Display", var(--f-latin); font-weight: 300; font-size: .84em; }  /* Latin inside a heading takes the light display face, like Nesher beside it */
 :focus-visible { outline: none; box-shadow: var(--focus); }
@@ -525,7 +525,7 @@ html.a11y-still *, html.a11y-still *::before, html.a11y-still *::after { animati
 .fe-pic { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; background: var(--paper); }
 .fe-pic img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .fe-lead { display: grid; gap: 16px; justify-items: start; max-width: 44ch; }
-.fe-lead h3 { font-weight: 400; font-size: calc(clamp(32px, 2vw + .75rem, 60px) * var(--a11y-scale)); line-height: 1.12; }  /* h3 stays in Begin (tokens type.h3Font); the hero item reads bigger than its satellites (C15) */
+.fe-lead h3 { font-weight: 400; font-size: calc(clamp(32px, 2vw + .75rem, 60px) * var(--a11y-scale)); line-height: 1.12; }  /* h3 stays in the body face (tokens type.h3Font); the hero item reads bigger than its satellites (C15) */
 .fe-lead p { font-size: var(--fs-lead); line-height: 1.7; color: var(--muted-strong); }
 .fe-list { list-style: none; margin: clamp(56px, 6vw, 128px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(24px, 2.4vw, 48px); }
 .fe-list li { display: grid; align-content: start; gap: 12px; padding-top: 20px; border-top: 1px solid var(--ink); }
@@ -821,3 +821,49 @@ html:not(.js) .rd-track, .rd.is-still .rd-track { width: auto; flex-wrap: wrap; 
 .tr-in p { max-width: 56ch; font-size: var(--fs-lead); line-height: 1.7; color: var(--muted-strong); }
 .tr-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; margin-top: 8px; }
 @media (max-width: 767px) { .tr { padding-inline: 0; } .tr-in { padding: 48px var(--gutter); } }
+
+/* =========================================================================================
+   en.html · for suppliers and retailers (ltr). Quiet: no scroll scenes, the visit pattern closes it.
+   The logical properties above flip on their own; Latin headings fall to Clash Display 112% (Nesher has no Latin)
+   ========================================================================================= */
+html[lang="en"] .hd .hd-a11y { display: grid; }
+html[dir="ltr"] .tlink .arr { transform: scaleX(-1); }   /* the arrow is drawn for rtl */
+@media (hover: hover) and (pointer: fine) { html[dir="ltr"] .tlink:hover .arr { transform: scaleX(-1) translateX(-4px); } }
+html[lang="en"] .hd .hlink { font-size: var(--fs-small); }
+html[lang="en"] h1, html[lang="en"] h2 { letter-spacing: -.02em; }
+/* the type scale is calibrated for narrow Nesher (factor 1.265); Clash Display is wide, so English headings step down and the measure opens */
+html[lang="en"] h1 { font-size: calc(var(--fs-hero) * .74); line-height: 1.05; }
+html[lang="en"] .sh h1 { max-width: 14ch; }
+html[lang="en"] h2 { font-size: calc(var(--fs-h2) * .82); }
+html[lang="en"] .visit h2 { font-size: calc(var(--fs-statement) * .82); }
+
+/* three things we do */
+.en-what { padding: var(--sec-loose) var(--gutter) var(--sec); }
+.en-three { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(32px, 4vw, 96px); }
+.en-three li { display: grid; align-content: start; gap: 12px; padding-top: 20px; border-top: 1px solid var(--ink); }
+.en-three h3 { font-size: calc(clamp(22px, .8vw + .9rem, 32px) * var(--a11y-scale)); font-weight: 400; line-height: 1.25; }
+.en-three p { font-size: var(--fs-body); line-height: 1.7; color: var(--muted-strong); }
+.en-strip { list-style: none; margin: clamp(56px, 6vw, 128px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap-s); }
+.en-strip li { display: grid; gap: 8px; justify-items: center; }
+.en-strip img { width: 100%; aspect-ratio: 1; object-fit: contain; background: var(--paper); mix-blend-mode: multiply; }
+.en-strip li { background: var(--surface); }
+.en-strip span { font-size: var(--fs-micro); font-weight: 500; letter-spacing: .06em; color: var(--ink); }
+@media (max-width: 1023px) { .en-three { grid-template-columns: minmax(0, 1fr); } .en-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .en-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* brands we bring in: one row each, on hairlines */
+.en-brands { padding: var(--sec) var(--gutter); background: var(--paper); }
+.en-blist { list-style: none; margin: 0; padding: 0; }
+.en-blist li { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, .5fr) minmax(0, 1.4fr); gap: 8px 32px; align-items: baseline; padding: clamp(20px, 2vw, 32px) 0; border-bottom: 1px solid var(--line); }
+.en-blist b { font-family: "Clash Display", var(--f-latin); font-size: calc(clamp(26px, 1.6vw + .75rem, 44px) * var(--a11y-scale)); font-weight: 300; line-height: 1.1; color: var(--ink); }
+.en-blist span { font-size: var(--fs-micro); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.en-blist p { font-size: var(--fs-body); line-height: 1.7; color: var(--muted-strong); }
+@media (max-width: 767px) { .en-blist li { grid-template-columns: minmax(0, 1fr); } }
+
+/* the story: five years in a row */
+.en-story { padding: var(--sec) var(--gutter); }
+.en-years { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(24px, 2.4vw, 48px); }
+.en-years li { display: grid; align-content: start; gap: 12px; }
+.en-years b { font-family: "Clash Display", var(--f-latin); font-size: calc(clamp(40px, 3.6vw, 72px) * var(--a11y-scale)); font-weight: 300; line-height: 1; letter-spacing: -.03em; color: var(--ink); }
+.en-years p { font-size: var(--fs-small); line-height: 1.65; color: var(--muted-strong); }
+@media (max-width: 1023px) { .en-years { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; } }

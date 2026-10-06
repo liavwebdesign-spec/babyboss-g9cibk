@@ -20,6 +20,7 @@
   var panel = document.createElement("div");
   panel.className = "a11y-panel"; panel.id = "a11y-panel";
   panel.setAttribute("role", "dialog"); panel.setAttribute("aria-labelledby", "a11y-title"); panel.setAttribute("aria-modal", "false");
+  panel.lang = "he"; panel.dir = "rtl";   // the panel speaks Hebrew, also on the English page
   panel.innerHTML = '<div class="a11y-head"><h2 id="a11y-title">התאמות תצוגה</h2><button class="a11y-x" type="button" aria-label="סגירת התאמות התצוגה">×</button></div>' +
     '<div class="a11y-opts"><div class="a11y-row"><span id="a11y-size">גודל טקסט</span><button type="button" data-size="-1" aria-describedby="a11y-size">הקטנה</button><button type="button" data-size="1" aria-describedby="a11y-size">הגדלה</button></div>' +
     MODES.map(function (m) { return '<button type="button" data-mode="' + m[0] + '" aria-pressed="false">' + m[1] + "</button>"; }).join("") +
