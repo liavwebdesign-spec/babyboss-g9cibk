@@ -202,9 +202,27 @@
     blockers.forEach(function (el) { fo.observe(el); });
   }
 
-  /* ---------- GSAP layer: only the two approved moves ---------- */
+  /* the road (about.html) starts still: the years wrap and all show. The GSAP layer below turns it into the travelling track */
+  var road = document.getElementById("road");
+  if (road) road.classList.add("is-still");
+
+  /* ---------- GSAP layer: the approved moves, page by page ---------- */
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;   // without GSAP: the photo is whole, the last stroller shows, all text reads
   gsap.registerPlugin(ScrollTrigger);
+
+  /* the road (about.html): the section pins and the track of years travels sideways, 1981 on the right to today on the left */
+  if (road) {
+    var rtrack = road.querySelector(".rd-track"), rview = road.querySelector(".rd-view"), rbar = road.querySelector(".rd-bar");
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+      road.classList.remove("is-still");
+      var dist = function () { return Math.max(0, rtrack.scrollWidth - rview.clientWidth); };
+      rbar.style.setProperty("--p", 0);
+      gsap.to(rtrack, { x: function () { return dist(); }, ease: "none",
+        scrollTrigger: { trigger: road, start: "top top", end: function () { return "+=" + dist(); }, scrub: 1, pin: road.querySelector(".rd-pin"), anticipatePin: 1, invalidateOnRefresh: true,
+          onUpdate: function (s) { rbar.style.setProperty("--p", s.progress.toFixed(3)); } } });
+      return function () { road.classList.add("is-still"); rbar.style.removeProperty("--p"); };
+    });
+  }
 
   /* MV:g03, the night shoot opens from a circle to the full screen */
   var m = document.getElementById("maskv");

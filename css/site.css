@@ -84,6 +84,7 @@ h2 { font-size: var(--fs-h2); line-height: 1.1; }
 h3 { margin: 0; font-family: var(--f-text); font-size: var(--fs-h3); font-weight: 500; line-height: 1.4; color: var(--ink); }
 p { margin: 0; text-wrap: pretty; }
 .lat { font-family: var(--f-latin); }
+p .lat, li .lat { white-space: nowrap; }  /* "Baby Boss" never splits across lines inside a sentence */
 h1 .lat, h2 .lat { font-family: "Clash Display", var(--f-latin); font-weight: 300; font-size: .84em; }  /* Latin inside a heading takes the light display face, like Nesher beside it */
 :focus-visible { outline: none; box-shadow: var(--focus); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -763,3 +764,60 @@ html:not(.js) .fi-box { display: none; }
 
 /* ---------- warranty: one quiet line ---------- */
 .hc-warranty { padding: 0 var(--gutter) var(--sec); text-align: center; font-size: var(--fs-lead); color: var(--muted-strong); }
+
+/* =========================================================================================
+   about.html · archetype R6 (about as a story), rhythm P4; declared expressive (two scroll scenes: the road, pinned and
+   travelling sideways, and the visit). C1 hero · horizontal timeline · C8 story · numbered principles · C10 band · trade · visit
+   ========================================================================================= */
+
+/* ---------- the road: the section pins and the track of years travels sideways (rtl: from 1981 on the right) ---------- */
+.rd { background: var(--paper); overflow: clip; }
+.rd-pin { background: var(--paper); min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; gap: clamp(24px, 3vh, 48px); padding: calc(var(--hdr) + 16px) 0 clamp(32px, 5vh, 64px); }
+.rd-title { max-width: 18ch; padding: 0 var(--gutter); }
+.rd-view { align-self: center; min-width: 0; }  /* the frame stays the width of the screen; the track overflows it */
+.rd-track { list-style: none; margin: 0; padding: 0 var(--gutter); background: var(--paper); display: flex; gap: clamp(32px, 5vw, 112px); width: max-content; }
+.rd-stop { display: grid; align-content: start; gap: 28px; width: clamp(260px, 28vw, 560px); }
+.rd-year { font-family: "Clash Display", var(--f-latin); font-size: calc(clamp(64px, 7.4vw, 144px) * var(--a11y-scale));  /* four digits stay inside the stop at every width */ font-weight: 300; line-height: 1; letter-spacing: -.03em; color: var(--ink); }
+.rd-now .rd-year { font-family: var(--f-display); letter-spacing: -.012em; }
+.rd-stop p { max-width: 34ch; font-size: var(--fs-lead); line-height: 1.6; color: var(--muted-strong); }
+.rd-pic img { width: min(100%, 320px); aspect-ratio: 1; height: auto; object-fit: cover; background: var(--paper); margin-top: 8px; }
+.rd-now img { object-fit: contain; mix-blend-mode: multiply; }
+.rd-bar { margin: 0 var(--gutter); height: 2px; background: var(--line); }
+.rd-bar i { display: block; height: 100%; background: var(--ink); transform: scaleX(var(--p, 1)); transform-origin: right; }
+/* without motion the track simply wraps, every year visible */
+html:not(.js) .rd-track, .rd.is-still .rd-track { width: auto; flex-wrap: wrap; row-gap: 48px; }
+@media (max-width: 767px) {
+  .rd-pin { padding-top: calc(var(--hdr) + 8px); }
+  .rd-stop { width: 76vw; }
+  .rd-pic img { width: min(100%, 240px); }
+}
+
+/* ---------- why another stroller: C8, story at reading width, one sentence lifted out ---------- */
+.ws { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .7fr); gap: clamp(40px, 7vw, 192px); align-items: center; padding: var(--sec-loose) var(--gutter) var(--sec); }
+.ws-text { display: grid; gap: 24px; max-width: 58ch; }
+.ws-text h2 { max-width: 16ch; }
+.ws-text p { font-size: var(--fs-lead); line-height: 1.75; color: var(--muted-strong); }
+.ws-text .ws-lift { margin: 12px 0; padding-inline-start: clamp(20px, 2vw, 32px); border-inline-start: 2px solid var(--ink); font-family: var(--f-display); font-size: var(--fs-statement); font-weight: 300; line-height: 1.12; color: var(--ink); }
+.ws-pic { margin: 0; aspect-ratio: 5 / 6; overflow: hidden; background: var(--paper); }
+.ws-pic img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 1023px) { .ws { grid-template-columns: minmax(0, 1fr); } .ws-pic { max-width: 520px; } }
+
+/* ---------- how we work: four principles on thin rules ---------- */
+.pr { padding: var(--sec) var(--gutter); }
+.pr-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 4vw, 88px) clamp(32px, 5vw, 128px); }
+.pr-grid li { display: grid; align-content: start; gap: 12px; padding-top: 20px; border-top: 1px solid var(--ink); }
+.pr-grid h3 { font-size: calc(clamp(22px, .8vw + .9rem, 32px) * var(--a11y-scale)); font-weight: 400; line-height: 1.25; }
+.pr-grid p { max-width: 50ch; font-size: var(--fs-body); line-height: 1.75; color: var(--muted-strong); }
+@media (max-width: 767px) { .pr-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- where to buy: a short centred band ---------- */
+.wb { display: grid; justify-items: center; gap: clamp(16px, 1.6vw, 24px); padding: var(--sec) var(--gutter); text-align: center; }
+.wb p { max-width: var(--measure); font-size: var(--fs-lead); line-height: 1.7; color: var(--muted-strong); }
+
+/* ---------- for stores and brands: its own surface ---------- */
+.tr { padding: 0 var(--gutter) var(--sec); }
+.tr-in { display: grid; justify-items: start; gap: clamp(16px, 1.6vw, 24px); padding: clamp(40px, 5vw, 112px); background: var(--paper); }
+.tr-in h2 { max-width: 18ch; }
+.tr-in p { max-width: 56ch; font-size: var(--fs-lead); line-height: 1.7; color: var(--muted-strong); }
+.tr-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; margin-top: 8px; }
+@media (max-width: 767px) { .tr { padding-inline: 0; } .tr-in { padding: 48px var(--gutter); } }
