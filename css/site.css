@@ -704,3 +704,62 @@ html:not(.js) .fi-box { display: none; }
 .vb { display: grid; justify-items: center; gap: clamp(20px, 2vw, 32px); padding: var(--sec) var(--gutter); border-block: 1px solid var(--line); text-align: center; }
 .vb-logo { width: clamp(160px, 13vw, 240px); height: auto; filter: brightness(0); opacity: .9; }
 .vb p { max-width: var(--measure); font-size: var(--fs-lead); line-height: 1.75; color: var(--muted-strong); }
+
+/* =========================================================================================
+   high-chairs.html · a short catalogue page (archetype R4, quiet). The three chairs stand side by side like a page of
+   the collection; then C3 zigzag rows with colour swatches; one line of warranty; the visit.
+   ========================================================================================= */
+
+/* ---------- hero: centred head, the trio on one paper floor ---------- */
+.hc-hero { padding: calc(var(--hdr) + clamp(40px, 6vh, 88px)) var(--gutter) var(--sec); }
+.hc-head { display: grid; justify-items: center; gap: clamp(14px, 2vh, 24px); max-width: 920px; margin-inline: auto; text-align: center; }
+.hc-head h1 { max-width: 16ch; }
+.hc-head .hero-lead { max-width: 52ch; font-size: var(--fs-lead); line-height: 1.6; color: var(--muted-strong); }
+.hc-trio { list-style: none; margin: clamp(40px, 5vw, 88px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-m); }
+.hc-trio a { display: grid; gap: 4px; justify-items: center; text-align: center; text-decoration: none; color: var(--ink); }
+.hc-tpic { display: block; width: 100%; aspect-ratio: 1; background: var(--paper); transition: background-color .3s var(--ease); }
+.hc-tpic img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .4s var(--ease); }
+.hc-tname { margin-top: 16px; font-size: var(--fs-h3); font-weight: 500; }
+.hc-ttag { font-size: var(--fs-micro); color: var(--muted); }
+@media (hover: hover) and (pointer: fine) { .hc-trio a:hover .hc-tpic img { transform: translateY(-6px); } }
+.hc-trio a:active .hc-tpic img { transform: translateY(-2px) scale(.99); transition-duration: .12s; }
+@media (max-width: 767px) {
+  .hc-hero { padding-top: calc(var(--hdr) + 32px); }
+  .hc-trio { gap: 8px; }
+  .hc-tname { margin-top: 8px; font-size: var(--fs-small); }
+  .hc-ttag { display: none; }
+}
+
+/* ---------- the chairs: C3 zigzag, the photo swaps colour from the swatches under it ---------- */
+.hc-rows { display: grid; gap: var(--sec); padding: 0 var(--gutter) var(--sec); }  /* the hero already ends with a section gap */
+.hc-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 160px); align-items: center; scroll-margin-top: calc(var(--hdr) + 16px); }
+.hc-row:nth-child(even) .hc-media { order: 2; }
+.hc-media { display: grid; gap: 16px; }
+.hc-pic { aspect-ratio: 1; background: var(--paper); }
+.hc-pic img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: opacity .24s var(--ease); }
+.hc-pic img.is-swapping { opacity: 0; }
+.hc-sw { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.sw { position: relative; display: block; width: 44px; height: 44px; cursor: pointer; }
+.sw input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.sw::before { content: ""; position: absolute; inset: 10px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(15,15,15,.18); pointer-events: none; }
+.sw::after { content: ""; position: absolute; inset: 4px; box-shadow: inset 0 0 0 1.5px var(--ink); opacity: 0; pointer-events: none; transition: opacity .18s var(--ease); }
+.sw:has(input:checked)::after { opacity: 1; }
+.sw:has(input:focus-visible) { box-shadow: var(--focus); }
+.sw-name { margin-inline-start: 12px; font-size: var(--fs-micro); color: var(--muted-strong); }
+.hc-txt { display: grid; justify-items: start; gap: 14px; max-width: 52ch; }
+.hc-name { font-size: var(--fs-h2); }
+.hc-txt > p:not(.mo-tag):not(.hc-note) { font-size: var(--fs-lead); line-height: 1.7; color: var(--muted-strong); }
+.hc-specs { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 32px; font-size: var(--fs-small); color: var(--text); }
+.hc-specs li { position: relative; padding-inline-start: 16px; }
+.hc-specs li::before { content: ""; position: absolute; inset-inline-start: 0; top: .7em; width: 6px; height: 6px; background: var(--ink); }
+.hc-note { font-size: var(--fs-micro); line-height: 1.6; color: var(--muted); }
+.nb { white-space: nowrap; }  /* a brand name stays on one line */
+@media (max-width: 767px) {
+  .hc-row { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .hc-row:nth-child(even) .hc-media { order: 0; }
+  .hc-specs { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .hc-pic img { transition: none; } }
+
+/* ---------- warranty: one quiet line ---------- */
+.hc-warranty { padding: 0 var(--gutter) var(--sec); text-align: center; font-size: var(--fs-lead); color: var(--muted-strong); }

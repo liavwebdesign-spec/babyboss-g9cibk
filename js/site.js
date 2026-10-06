@@ -169,6 +169,24 @@
     fbox.classList.add("is-live");
   }
 
+  /* ---------- colour swatches (high-chairs.html): a radio group per chair (one colour at a time, arrows move between them);
+     choosing one swaps the photo, its alt text, the colour name and the purchase link ---------- */
+  document.querySelectorAll(".hc-row").forEach(function (row) {
+    var img = row.querySelector(".hc-pic img"), name = row.querySelector(".sw-name"), buy = row.querySelector(".hc-buy");
+    row.querySelectorAll(".sw input").forEach(function (r) {
+      r.addEventListener("change", function () {
+        if (!r.checked) return;
+        name.textContent = r.parentNode.textContent.trim();
+        buy.href = r.dataset.buy;
+        var go = function () { img.src = r.dataset.img; img.alt = r.dataset.alt; img.classList.remove("is-swapping"); };
+        if (rm) { go(); return; }
+        var pre = new Image(); pre.src = r.dataset.img;
+        img.classList.add("is-swapping");
+        setTimeout(function () { (pre.decode ? pre.decode() : Promise.resolve()).then(go, go); }, 200);
+      });
+    });
+  });
+
   /* ---------- floating WhatsApp: after the hero, and away again where the page already offers it ---------- */
   // on a phone the whole bar steps aside (its accessibility button lives in the header meanwhile); wider, only WhatsApp does
   var fab = document.querySelector(".fab-wa"), fabs = document.getElementById("fabs");
