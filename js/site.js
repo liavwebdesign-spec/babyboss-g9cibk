@@ -98,6 +98,7 @@
     valco: { origin: "אוסטרליה", name: "Valco Baby", text: "חברה משפחתית שמייצרת עגלות מאז 1965. אנחנו מביאים לישראל את עגלת התאומים שלה, ה-Slim Twin.", link: ["לעגלת התאומים", "twin.html"] },
     abc: { origin: "גרמניה", name: "ABC Design", text: "חברה משפחתית מגרמניה, שהוקמה ב-1989. אנחנו מביאים לישראל את הטיולון Ping 2, את Ping 2 Trekking עם הגלגלים הגדולים לשבילים ולמדרכות משובשות, ועגלה חדשה שתגיע בקרוב." },
     choopie: { origin: "ארה\"ב", name: "Choopie", text: "את החברה הקימה בניו יורק אמא שזיהתה צורך, וכך נולדו ה-City Grips: כיסויים לידית העגלה. אנחנו מביאים את City Grips ואת City Hooks, הווים לתליית תיקים על העגלה." },
+    polo: { origin: "ארה\"ב", name: "Santa Barbara Polo & Racquet Club", img: "images/polo-ed-0.webp", text: "מהדורה מיוחדת של Baby Boss בשיתוף המותג האמריקאי: עגלה בגוון בז' עם הסמל של המועדון, וכיסאות האוכל פלומה ו-וולט בעיצוב שלו." },
     benbat: { origin: "ישראל", name: "Benbat", text: "מותג ישראלי שהקימו ב-2008 שני אחים, מעצבי מוצר, ושנמכר היום ביותר מ-30 מדינות. אנחנו מפיצים את המראות, הצלונים והצעצועים שלו לרכב ולעגלה." }
   };
   var dlg = document.getElementById("br-dlg"), opener = null;
@@ -109,6 +110,7 @@
         dlg.querySelector(".br-origin").textContent = d.origin;
         dlg.querySelector(".br-name").textContent = d.name;
         dlg.querySelector(".br-text").textContent = d.text;
+        var bi = dlg.querySelector(".br-img"); if (bi) { if (d.img) { bi.src = d.img; bi.alt = "עגלת Baby Boss במהדורת " + d.name; bi.hidden = false; } else { bi.hidden = true; bi.removeAttribute("src"); } }
         var act = dlg.querySelector(".br-actions"); act.innerHTML = "";
         var wa = document.createElement("a");
         wa.className = "btn btn-solid"; wa.target = "_blank"; wa.rel = "noopener";
@@ -185,6 +187,23 @@
         setTimeout(function () { (pre.decode ? pre.decode() : Promise.resolve()).then(go, go); }, 200);
       });
     });
+  });
+
+  /* ---------- colours (Kobi, 7.10.2026): a radio per fabric kit swaps the stroller; until someone picks, the scroll walks through them ---------- */
+  document.querySelectorAll(".kit").forEach(function (kit) {
+    var imgs = [].slice.call(kit.querySelectorAll(".kit-img")), radios = [].slice.call(kit.querySelectorAll(".kit-sw input")), name = kit.querySelector(".kit-name");
+    var cur = 0;
+    kit._show = function (i, fromScroll) {
+      if (i === cur) return; cur = i;
+      imgs.forEach(function (im, k) { im.classList.toggle("is-on", k === i); });
+      radios[i].checked = true; name.textContent = radios[i].parentNode.textContent.trim();
+      if (fromScroll) return;
+      kit._picked = true;
+    };
+    radios.forEach(function (r, i) { r.addEventListener("change", function () { if (r.checked) kit._show(i); }); });
+    // warm the next few photos so the walk never flashes empty
+    var warm = function () { imgs.forEach(function (im) { im.loading = "eager"; }); };
+    if ("IntersectionObserver" in window) { var wo = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { warm(); wo.disconnect(); } }, { rootMargin: "600px" }); wo.observe(kit); } else warm();
   });
 
   /* ---------- floating WhatsApp: after the hero, and away again where the page already offers it ---------- */
@@ -271,6 +290,15 @@
       return function () { st.p = 1; draw(); };
     });
   }
+
+  /* colours: scrolling past walks the stroller through the kits (scrubbed, no pin), until a swatch is chosen */
+  document.querySelectorAll(".kit").forEach(function (kit) {
+    var n = kit.querySelectorAll(".kit-img").length;
+    gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+      ScrollTrigger.create({ trigger: kit, start: "top 70%", end: "bottom 30%",
+        onUpdate: function (st) { if (kit._picked) return; kit._show(Math.min(n - 1, Math.floor(st.progress * n)), true); } });
+    });
+  });
 
   /* the visit: the city shoot settles slowly as the section arrives, nothing more */
   var vbg = document.querySelector(".vs-bg img");

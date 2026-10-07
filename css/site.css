@@ -867,3 +867,33 @@ html[lang="en"] .visit h2 { font-size: calc(var(--fs-statement) * .82); }
 .en-years b { font-family: "Clash Display", var(--f-latin); font-size: calc(clamp(40px, 3.6vw, 72px) * var(--a11y-scale)); font-weight: 300; line-height: 1; letter-spacing: -.03em; color: var(--ink); }
 .en-years p { font-size: var(--fs-small); line-height: 1.65; color: var(--muted-strong); }
 @media (max-width: 1023px) { .en-years { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; } }
+
+/* =========================================================================================
+   colours (Kobi, 7.10.2026): one black chassis, about 20 fabric kits. On ink; Kobi's photos are shot on black and
+   melt into it (lighten). Scrolling past walks the stroller through the kits; a swatch takes over
+   ========================================================================================= */
+.kit { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 128px); align-items: center; padding: var(--sec) var(--gutter); background: var(--ink); color: var(--on-dark); }
+.kit-copy { display: grid; justify-items: start; gap: clamp(16px, 1.6vw, 24px); max-width: 52ch; }
+.kit h2 { max-width: 14ch; color: var(--on-dark); }
+h1 .lat, h2 .lat { white-space: nowrap; }
+.kit-copy > p { font-size: var(--fs-lead); line-height: 1.7; color: var(--on-dark-muted); }
+.kit-pick { display: grid; gap: 8px; }
+.kit-sw { display: grid; grid-template-columns: repeat(8, 44px); }   /* 8 + 7, never an orphan */
+.kit .sw::before { box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+.kit .sw::after { box-shadow: inset 0 0 0 1.5px var(--on-dark); }
+.kit-name { font-size: var(--fs-small); color: var(--on-dark); }
+.kit-copy .kit-note { font-size: var(--fs-micro); color: var(--on-dark-muted); }
+.kit-stage { position: relative; margin: 0; aspect-ratio: 1; background: var(--ink); }  /* the reveal isolates the figure: lighten needs the ink inside it */
+.kit-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: lighten; opacity: 0; transition: opacity .45s var(--ease); }
+.kit-img.is-on { opacity: 1; }
+@media (max-width: 767px) { .kit-sw { grid-template-columns: repeat(5, 44px); } }   /* 5 + 5 + 5 on phones */
+@media (max-width: 1023px) { .kit { grid-template-columns: minmax(0, 1fr); } .kit-stage { order: -1; max-width: 560px; width: 100%; justify-self: center; } }
+@media (prefers-reduced-motion: reduce) { .kit-img { transition: none; } }
+
+/* brands: the Santa Barbara Polo mark sits in the band as a quiet one-colour logo */
+.br-logo { display: grid; place-items: center; }
+.br-logo img { width: auto; height: 72px; filter: brightness(0); opacity: .55; transition: opacity .2s var(--ease); }
+@media (hover: hover) and (pointer: fine) { .br-logo:hover img { opacity: 1; } }
+.br-logo:focus-visible img { opacity: 1; }
+.br-img { display: block; width: min(100%, 260px); height: auto; margin: 20px 0 0; }
+.br-img[hidden] { display: none; }
